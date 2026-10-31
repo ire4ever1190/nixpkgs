@@ -108,7 +108,10 @@ let
 
         cp -r config $out/etc/nim
 
-        for binpath in ${nimUnwrapped}/bin/nim?*; do
+        # also wrap the NIF tools shipped since Nim 2.4 (nifler, nifmake);
+        # `nim ic` looks them up on PATH. `nim` itself is handled below.
+        shopt -s nullglob
+        for binpath in ${nimUnwrapped}/bin/nim?* ${nimUnwrapped}/bin/nif*; do
           local binname=`basename $binpath`
           makeWrapper \
             $binpath $out/bin/${targetPlatformConfig}-$binname \
