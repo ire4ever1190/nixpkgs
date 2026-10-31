@@ -51,5 +51,11 @@ buildNimPackage (finalAttrs: {
     mainProgram = "balls";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
+    # The test suite of balls 5.4.0 no longer compiles with Nim 2.4:
+    # codegen for the `expect`/`spawn` paths requires the compilerproc
+    # `nimGCunref`, which the Nim 2.4 system module does not provide under
+    # arc/orc ("Error: system module needs: nimGCunref"). The balls binary
+    # itself builds fine; only checkPhase fails.
+    broken = true;
   };
 })

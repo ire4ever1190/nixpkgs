@@ -10,7 +10,8 @@ buildNimPackage (finalAttrs: {
 
   postPatch = ''
     substituteInPlace src/nph.nim \
-      --replace-fail 'git describe --long --dirty --always --tags' "echo ${finalAttrs.version}"
+      --replace-fail 'git describe --long --dirty --always --tags' "echo ${finalAttrs.version}" \
+      --replace-fail 'doAssert NimMajor == 2 and NimMinor == 2, "nph needs a specific version of Nim"' 'doAssert NimMajor == 2, "nph needs Nim 2.x"'
   '';
 
   src = fetchFromGitHub {
