@@ -96,6 +96,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
     install -Dt $out/bin bin/*
     ln -sf $out/nim/bin/nim $out/bin/nim
+    ln -sf $out/nim/bin/nifler $out/bin/nifler
+    ln -sf $out/nim/bin/nifmake $out/bin/nifmake
     ln -sf $out/nim/lib $out/lib
     ./install.sh $out
     cp -a tools dist $out/nim/
